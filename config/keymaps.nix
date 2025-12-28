@@ -43,5 +43,11 @@
       mode = [ "n" ];
       options.silent = true;
     }
+    {
+      action = "<cmd>Oil<CR>";
+      key = "<leader>e";
+      mode = [ "n" ];
+      options.silent = true;
+    }
   ];
 }
