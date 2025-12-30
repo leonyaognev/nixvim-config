@@ -9,7 +9,50 @@
   ];
 
   plugins = {
-    oil.enable = true; # File browser
+    neo-tree.enable = true; # File browser
+
+    neo-tree.settings = {
+				close_if_last_window = true;
+				window = {
+					position = "right";
+					width = 30;
+					mapping_options = {
+						noremap = true;
+						nowait = true;
+					};
+					mappings = {
+						"f" = "focus_preview";
+						"l" = "open";
+						"h" = "close_node";
+					};
+				};
+				filesystem = {
+					filtered_items = {
+						visible = false;
+						hide_dotfiles = true;
+						hide_hidden = true;
+						always_show = [
+							".gitignore"
+						];
+						hide_by_name = [
+							"build"
+							"node_modules"
+						];
+						never_show = [
+							".DS_Store"
+							".cache"
+						];
+					};
+					group_empty_dirs = true;
+				};
+				buffers = {
+					follow_current_file = {
+						enabled = true;
+						leave_dirs_open = true;
+					};
+					group_empty_dirs = true;
+				};
+    };
   };
 
   clipboard.register = "unnamedplus";

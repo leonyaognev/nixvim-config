@@ -44,7 +44,7 @@
       options.silent = true;
     }
     {
-      action = "<cmd>Oil<CR>";
+      action = "<cmd>Neotree toggle<CR>";
       key = "<leader>e";
       mode = [ "n" ];
       options.silent = true;

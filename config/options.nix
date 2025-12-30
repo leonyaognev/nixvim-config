@@ -1,10 +1,8 @@
 { self, ... }: {
   opts = {
     autoread = true;
-    belloff = "";
     breakindent = true;
     cmdheight = 0;
-    errorbells = true;
     expandtab = true;
     ignorecase = true;
     linebreak = true;
@@ -21,8 +19,8 @@
     splitbelow = true;
     splitright = true;
     tabstop = 2;
-    timeoutlen = 100;
+    timeoutlen = 1000;
     undofile = true;
-    updatetime = 250;
+    updatetime = 1000;
   };
 }
