@@ -22,5 +22,6 @@
     timeoutlen = 1000;
     undofile = true;
     updatetime = 1000;
+    clipboard = "unnamedplus";
   };
 }
