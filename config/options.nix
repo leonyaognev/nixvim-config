@@ -6,7 +6,11 @@
     expandtab = true;
     ignorecase = true;
     linebreak = true;
-    listchars = { tab = "» "; trail = "·"; nbsp = "␣"; };
+    listchars = {
+      tab = "» ";
+      trail = "·";
+      nbsp = "␣";
+    };
     list = true;
     number = true;
     relativenumber = true;

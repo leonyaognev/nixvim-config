@@ -49,5 +49,33 @@
       mode = [ "n" ];
       options.silent = true;
     }
+    {
+      action = "<C-w>h";
+      key = "<C-h>";
+      mode = [ "n" ];
+      options.silent = true;
+      options.noremap = true;
+    }
+    {
+      action = "<C-w>l";
+      key = "<C-l>";
+      mode = [ "n" ];
+      options.silent = true;
+      options.noremap = true;
+    }
+    {
+      action = "<C-w>j";
+      key = "<C-j>";
+      mode = [ "n" ];
+      options.silent = true;
+      options.noremap = true;
+    }
+    {
+      action = "<C-w>k";
+      key = "<C-k>";
+      mode = [ "n" ];
+      options.silent = true;
+      options.noremap = true;
+    }
   ];
 }

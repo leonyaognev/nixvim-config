@@ -1,8 +1,6 @@
 { ... }:
-let
-  selectOpts = "{ behavior = cmp.SelectBehavior.Insert }";
-in
-{
+let selectOpts = "{ behavior = cmp.SelectBehavior.Insert }";
+in {
   # Настройки LSP
   plugins.lsp = {
     enable = true;
@@ -17,7 +15,6 @@ in
       lspBuf = {
         "gd" = "definition";
         "gD" = "references";
-        "gt" = "type_definition";
         "gi" = "implementation";
         "K" = "hover";
         "<leader>rn" = "rename";

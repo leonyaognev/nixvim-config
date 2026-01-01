@@ -9,8 +9,6 @@
       "tb" = "buffers";
     };
 
-    extensions = {
-      fzf-native.enable = true;
-    };
+    extensions = { fzf-native.enable = true; };
   };
 }

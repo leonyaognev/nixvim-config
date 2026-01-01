@@ -12,46 +12,57 @@
     neo-tree.enable = true; # File browser
 
     neo-tree.settings = {
-				close_if_last_window = true;
-				window = {
-					position = "right";
-					width = 30;
-					mapping_options = {
-						noremap = true;
-						nowait = true;
-					};
-					mappings = {
-						"f" = "focus_preview";
-						"l" = "open";
-						"h" = "close_node";
-					};
-				};
-				filesystem = {
-					filtered_items = {
-						visible = false;
-						hide_dotfiles = true;
-						hide_hidden = true;
-						always_show = [
-							".gitignore"
-						];
-						hide_by_name = [
-							"build"
-							"node_modules"
-						];
-						never_show = [
-							".DS_Store"
-							".cache"
-						];
-					};
-					group_empty_dirs = true;
-				};
-				buffers = {
-					follow_current_file = {
-						enabled = true;
-						leave_dirs_open = true;
-					};
-					group_empty_dirs = true;
-				};
+      close_if_last_window = true;
+      window = {
+        position = "right";
+        width = 30;
+        mapping_options = {
+          noremap = true;
+          nowait = true;
+        };
+        mappings = {
+          "f" = "focus_preview";
+          "l" = "open";
+          "h" = "close_node";
+        };
+      };
+      filesystem = {
+        filtered_items = {
+          visible = false;
+          hide_dotfiles = true;
+          hide_hidden = true;
+          always_show = [ ".gitignore" ];
+          hide_by_name = [ "build" "node_modules" ];
+          never_show = [ ".DS_Store" ".cache" ];
+        };
+        group_empty_dirs = true;
+      };
+      buffers = {
+        follow_current_file = {
+          enabled = true;
+          leave_dirs_open = true;
+        };
+        group_empty_dirs = true;
+      };
+    };
+    none-ls = {
+      enable = true;
+      sources = {
+        formatting = {
+          # C / C++
+          clang_format.enable = true;
+          # Python
+          black.enable = true;
+          # JS / TS / HTML / CSS
+          prettier.enable = true;
+          # Shell
+          shfmt.enable = true;
+          # Lua
+          stylua.enable = true;
+          # Добавляем форматтер для Nix
+          nixfmt.enable = true;
+        };
+      };
     };
   };
 
@@ -63,34 +74,54 @@
     vim.g.have_nerd_font = true
   '';
 
-  autoGroups = {
-      highlight_yank = {
-        clear = false;
-      };
+  autoGroups = { highlight_yank = { clear = false; }; };
+
+  highlight = {
+    MyYankColor = {
+      bg = "#FA9900";
+      fg = "#000000";
+      blend = 50;
     };
+  };
 
-    highlight = {
-        MyYankColor = {
-          bg = "#FA9900";
-          fg = "#000000";
-          blend = 50;
-        };
+  autoCmd = [
+    {
+      event = [ "TextYankPost" ];
+      group = "highlight_yank";
+      callback = {
+        __raw = ''
+          function()
+            vim.highlight.on_yank({
+              higroup = "MyYankColor",
+              timeout = 200,
+            })
+          end
+        '';
       };
-
-    autoCmd = [
-      {
-        event = [ "TextYankPost" ];
-        group = "highlight_yank";
-        callback = {
-          __raw = ''
-            function()
-              vim.highlight.on_yank({
-                higroup = "MyYankColor",
-                timeout = 200,
-              })
-            end
-          '';
-        };
-      }
-    ];
-  }
+    }
+    {
+      event = [ "BufWritePre" ];
+      pattern = [ "*" ];
+      callback = {
+        # Используем __raw для вставки Lua-функции
+        __raw = ''
+          function(args)
+            vim.lsp.buf.format({
+              bufnr = args.buf,
+              -- Фильтр: используем только null-ls (none-ls), чтобы избежать конфликтов
+              -- Например, если tsserver тоже пытается форматировать
+              filter = function(client)
+                return client.name == "null-ls"
+              end
+            })
+          end
+        '';
+      };
+    }
+  ];
+  filetype = {
+    extension = {
+      tpp = "cpp"; # Теперь Neovim будет считать .tpp файлы как C++ файлы
+    };
+  };
+}
