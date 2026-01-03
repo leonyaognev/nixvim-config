@@ -1,6 +1,16 @@
 { ... }:
 let selectOpts = "{ behavior = cmp.SelectBehavior.Insert }";
 in {
+  diagnostic = {
+    settings = {
+      underline = true;
+      severity_sort = true;
+      signs = true;
+      virtual_text = true;
+      update_in_insert = false;
+    };
+  };
+
   # Настройки LSP
   plugins.lsp = {
     enable = true;
@@ -100,4 +110,5 @@ in {
     cmp-buffer.enable = true;
     conform-nvim.enable = true;
   };
+
 }
